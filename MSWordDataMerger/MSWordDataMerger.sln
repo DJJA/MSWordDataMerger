@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSWordDataMerger", "MSWordDataMerger\MSWordDataMerger.csproj", "{30233B0D-618A-4C24-8F31-05F1D5A75E05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{862BCF02-0F0E-4910-B6A7-C4B7F7C6F4FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSWordDataMerger.Logic", "MSWordDataMerger.Logic\MSWordDataMerger.Logic.csproj", "{097E9961-79C3-4346-9BCA-E35A7F2A26B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{30233B0D-618A-4C24-8F31-05F1D5A75E05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30233B0D-618A-4C24-8F31-05F1D5A75E05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30233B0D-618A-4C24-8F31-05F1D5A75E05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{862BCF02-0F0E-4910-B6A7-C4B7F7C6F4FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862BCF02-0F0E-4910-B6A7-C4B7F7C6F4FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862BCF02-0F0E-4910-B6A7-C4B7F7C6F4FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862BCF02-0F0E-4910-B6A7-C4B7F7C6F4FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{097E9961-79C3-4346-9BCA-E35A7F2A26B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{097E9961-79C3-4346-9BCA-E35A7F2A26B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{097E9961-79C3-4346-9BCA-E35A7F2A26B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{097E9961-79C3-4346-9BCA-E35A7F2A26B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
