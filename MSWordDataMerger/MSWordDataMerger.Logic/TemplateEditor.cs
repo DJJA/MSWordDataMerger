@@ -163,10 +163,10 @@ namespace MSWordDataMerger.Logic
             public String CompleteBlock { get { return StartTag + Content + EndTag; } }
         }
 
-        public class IterationKeyValuePairHolder // Made this a class so Ican do the =! null check
+        /*public class IterationKeyValuePairHolder // Made this a class so Ican do the =! null check
         {
             public String IterationBlockName;
             public IEnumerable<IEnumerable<KeyValuePair>> KeyValuePairIterations;
-        }
+        }*/
     }
 }

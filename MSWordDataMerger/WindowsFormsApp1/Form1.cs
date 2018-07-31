@@ -12,8 +12,7 @@ using System.Windows.Forms;
 using GemBox.Document;
 using MSWordDataMerger.Logic;
 using Xceed.Words.NET;
-using Paragraph = GemBox.Document.Paragraph;
-using Section = GemBox.Document.Section;
+using Paragraph = Xceed.Words.NET.Paragraph;
 
 namespace WindowsFormsApp1
 {
@@ -26,39 +25,9 @@ namespace WindowsFormsApp1
 
         private void btnMerge_Click(object sender, EventArgs e)
         {
-            Merge();
+          
         }
-
-        private void Merge()
-        {
-            string docPath = @"";
-
-            ComponentInfo.SetLicense("FREE-LIMITED-key");
-
-            // Create a new empty document.
-            var document = new DocumentModel();
-
-            // Add document content.
-            document.Sections.Add(
-                new Section(document,
-                    new Paragraph(document,
-                        new Field(document, FieldType.MergeField, "FullName"))));
-
-            // Save the document to a file and open it with Microsoft Word.
-            document.Save("TemplateDocument.docx");
-            // If document appears empty in Microsoft Word, press Alt + F9.
-            Process.Start("TemplateDocument.docx");
-
-            // Initialize mail merge data source.
-            var dataSource = new { FullName = "John Doe" };
-
-            // Execute mail merge.
-            document.MailMerge.Execute(dataSource);
-
-            // Save the document to a file and open it with Microsoft Word.
-            document.Save("Document.docx");
-            Process.Start("Document.docx");
-        }
+        
 
         private void btnOpenFile_Click(object sender, EventArgs e)
         {
@@ -129,9 +98,9 @@ namespace WindowsFormsApp1
                 new KeyValuePair("", ""),
             };
 
-            var iterationKeyValuePairHolders = new List<TemplateEditor.IterationKeyValuePairHolder>()
+            var iterationKeyValuePairHolders = new List<IterationKeyValuePairHolder>()
             {
-                new TemplateEditor.IterationKeyValuePairHolder()
+                new IterationKeyValuePairHolder()
                 {
                     IterationBlockName = "offerteregels",
                     KeyValuePairIterations = new List<List<KeyValuePair>>()
@@ -182,17 +151,84 @@ namespace WindowsFormsApp1
 
         private void btnSearchAndShow_Click(object sender, EventArgs e)
         {
-            using (DocX document = DocX.Load(@"C:\Users\Dirk-Jan de Beijer\Dropbox\docmerger\sertiferte.docx"))
+            using (DocX document = DocX.Load(@"C:\Users\Dirk-Jan de Beijer\Dropbox\docmerger\sertiferte copy.docx"))
             {
-                /*var blocks = finditerationBlocks(document);
-                foreach (var block in blocks)
+                var startTagIndex = GetFirstParagraphIndex(document, "<offerteregels>");
+                var endTagIndex = GetFirstParagraphIndex(document, "</offerteregels>");
+                var paragraphs = new List<Paragraph>();
+                for (int i = 1; i < endTagIndex - startTagIndex; i++)
                 {
-                    Console.WriteLine($"{block.StartTag.Tag} {block.StartTag.Index} - {block.EndTag.Tag} {block.EndTag.Index}");
-                    MessageBox.Show(block.Content);
-                }*/
+                    paragraphs.Add(document.Paragraphs[startTagIndex + i]);
+                }
+
+                //  Remove the iteration template
+                for (int i = 0; i < (endTagIndex - startTagIndex) + 1; i++)
+                {
+                    document.RemoveParagraphAt(startTagIndex);
+                }
+
+                int offset = startTagIndex;
+                for (int x = 0; x < 5; x++)
+                {
+                    offset = startTagIndex + x * paragraphs.Count;
+
+                    InsertParagraphsAt(document, offset, paragraphs);
+                    document.ReplaceText("<<positie>>", x.ToString());
+                    Console.WriteLine(paragraphs[0].Text);
+                }
+
+                
+
+                document.SaveAs(@"C:\Users\Dirk-Jan de Beijer\Dropbox\docmerger\document3.docx");
+                
+
+                using (DocX document2 = DocX.Create(@"C:\Users\Dirk-Jan de Beijer\Dropbox\docmerger\document2.docx"))
+                {
+                    for (int i = 0; i < 4; i++)
+                    foreach (var paragraph in paragraphs)
+                    {
+                        document2.InsertParagraph(paragraph);
+                    }
+                    document2.Save();
+                }
             }
         }
 
-        
+        private void InsertParagraphsAt(DocX document, int index, IEnumerable<Paragraph> paragraphs)
+        {
+            var followingParagraphs = new List<Paragraph>();
+            for (int i = index; i < document.Paragraphs.Count; i++)
+            {
+                followingParagraphs.Add(document.Paragraphs[i]);
+            }
+            for (int i = document.Paragraphs.Count-1; i >= index; i--)
+            {
+                document.RemoveParagraphAt(i);
+            }
+
+            foreach (var paragraph in paragraphs)
+            {
+                document.InsertParagraph(paragraph);
+            }
+
+            foreach (var paragraph in followingParagraphs)
+            {
+                document.InsertParagraph(paragraph);
+            }
+        }
+
+        private int GetFirstParagraphIndex(DocX document, String paragraphContent)
+        {
+            int index = -1;
+            for (int i = 0; i < document.Paragraphs.Count; i++)
+            {
+                if (document.Paragraphs[i].Text.Contains(paragraphContent))
+                {
+                    index = i;
+                    break;
+                }
+            }
+            return index;
+        }
     }
 }
