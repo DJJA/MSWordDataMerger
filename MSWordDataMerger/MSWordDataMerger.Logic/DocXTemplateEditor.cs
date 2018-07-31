@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Xceed.Words.NET;
@@ -8,14 +9,39 @@ namespace MSWordDataMerger.Logic
 {
     public class DocXTemplateEditor : ITemplateEditor
     {
-        public void MergeWithData(string templatePath, ICollection<KeyValuePair> keyValuePairs, IEnumerable<IterationKeyValuePairHolder> iterationKeyValuePairHolders, string mergedDocOutputPath)
+        public void MergeWithData(string templatePath, ICollection<KeyValuePair> keyValuePairs, IEnumerable<IterationKeyValuePairHolder> iterationKeyValuePairHolders, String toAppendDocumentsPath, String mergedDocOutputPath)
         {
             using (DocX document = DocX.Load(templatePath))
             {
                 ReplaceKeysWithValues(document, keyValuePairs);
                 ReplaceKeysWithValuesInIterations(document, iterationKeyValuePairHolders);
+
+                AppendDocuments(document, toAppendDocumentsPath);
                 
                 document.SaveAs(mergedDocOutputPath);
+            }
+        }
+
+        private void AppendDocuments(DocX document, String toAppendDocumentsPath)
+        {
+            var documents = Directory.GetFiles(toAppendDocumentsPath);
+            foreach (var d in documents)
+            {
+                if (Path.GetExtension(d) == ".docx")
+                {
+                    try
+                    {
+                        using (DocX doc = DocX.Load(d))
+                        {
+                            document.InsertSectionPageBreak();
+                            document.InsertDocument(doc);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // TODO Write log entry
+                    }
+                }
             }
         }
 

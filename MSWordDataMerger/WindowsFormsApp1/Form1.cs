@@ -130,6 +130,7 @@ namespace WindowsFormsApp1
                 templatePath: @"C:\Users\Dirk-Jan de Beijer\Dropbox\docmerger\sertiferte.docx",
                 keyValuePairs: keyValuePairs,
                 iterationKeyValuePairHolders: iterationKeyValuePairHolders,
+                toAppendDocumentsPath: @"C:\Users\Dirk-Jan de Beijer\Dropbox\docmerger\append-documents",
                 mergedDocOutputPath: @"C:\Users\Dirk-Jan de Beijer\Dropbox\docmerger\sertiferte-output.docx"
             );
         }
