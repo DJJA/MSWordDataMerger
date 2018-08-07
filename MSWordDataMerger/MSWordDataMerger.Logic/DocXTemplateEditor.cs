@@ -25,7 +25,25 @@ namespace MSWordDataMerger.Logic
                     Directory.CreateDirectory(directoryPath);
                 }
 
-                document.SaveAs(mergedDocOutputPath);
+                String outputPath;
+                if (!File.Exists(mergedDocOutputPath))
+                {
+                    outputPath = mergedDocOutputPath;
+                }
+                else
+                {
+                    var count = 1;
+                    var dirPath = $@"{Path.GetDirectoryName(mergedDocOutputPath)}\";
+                    var fileName = Path.GetFileNameWithoutExtension(mergedDocOutputPath);
+                    var extension = Path.GetExtension(mergedDocOutputPath);
+                    while (File.Exists($@"{dirPath}{fileName} ({count}){extension}"))
+                    {
+                        count++;
+                    }
+                    outputPath = $@"{dirPath}{fileName} ({count}){extension}";
+                }
+
+                document.SaveAs(outputPath);
             }
         }
 
