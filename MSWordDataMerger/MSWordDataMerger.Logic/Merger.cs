@@ -34,64 +34,66 @@ namespace MSWordDataMerger.Logic
 
         public void Merge()
         {
-            if (Directory.Exists(templateRootDirectory))
+            if (!Directory.Exists(templateRootDirectory))
             {
-                var templatePath = GetTemplatePath(templateRootDirectory);
-                var dataSource = $@"{templateRootDirectory}\mergeRequests";
-                if (templatePath != "" && Directory.Exists(dataSource) &&
-                    Directory.GetDirectories(dataSource).Length > 0)
+                throw new MergerException("The given template root directory does not exist.",
+                    templateRootDirectory);
+            }
+
+            var templatePath = GetTemplatePath(templateRootDirectory);
+            if (String.IsNullOrEmpty(templatePath))
+            {
+                throw new MergerException("Template not found", templateRootDirectory);
+            }
+            var dataSource = $@"{templateRootDirectory}\mergeRequests";
+            if (!Directory.Exists(dataSource) || Directory.GetDirectories(dataSource).Length <= 0) return;
+
+            var dataDirectories = Directory.GetDirectories(dataSource);
+            foreach (var dataDirectory in dataDirectories)
+            {
+                if (!File.Exists($@"{dataDirectory}\finishedExport")) continue;
+                try
                 {
-                    var dataDirectories = Directory.GetDirectories(dataSource);
-                    foreach (var dataDirectory in dataDirectories)
+                    // Merge template with data
+                    var data = keyValueLoader.LoadKeyValuePairs($@"{dataDirectory}\data");
+
+                    templateEditor.MergeWithData(
+                        templatePath: templatePath,
+                        keyValuePairs: data.KeyValuePairs,
+                        iterationKeyValuePairHolders: data.KeyValuePairIterations,
+                        toAppendDocumentsPath: AppendDocuments(dataDirectory)
+                            ? $@"{templateRootDirectory}\appendDocuments"
+                            : "",
+                        mergedDocOutputPath:
+                        $@"{templateRootDirectory}\output\{GetOuputName(dataDirectory)}"
+                    );
+                }
+                catch (MergerException)
+                {
+                    throw; // Rethrow this exception so it can be handled by the class that's using this one
+                }
+                catch (Exception e)
+                {
+                    throw new MergerException(
+                        "Something went wrong while trying to merge data with the template.",
+                        e.Message);
+                    // TODO Possible memoryleak? Will it reach the finally block?
+                    // Also possible loop if it does not reach the finally block
+                }
+                finally
+                {
+                    // TODO I think it does get here....
+                    try
                     {
-                        if (File.Exists($@"{dataDirectory}\finishedExport"))
-                        {
-                            try
-                            {
-                                // Merge template with data
-                                var data = keyValueLoader.LoadKeyValuePairs($@"{dataDirectory}\data");
-
-                                templateEditor.MergeWithData(
-                                    templatePath: templatePath,
-                                    keyValuePairs: data.KeyValuePairs,
-                                    iterationKeyValuePairHolders: data.KeyValuePairIterations,
-                                    toAppendDocumentsPath: AppendDocuments(dataDirectory)
-                                        ? $@"{templateRootDirectory}\appendDocuments"
-                                        : "",
-                                    mergedDocOutputPath:
-                                    $@"{templateRootDirectory}\output\{GetOuputName(dataDirectory)}"
-                                );
-                            }
-                            catch (MergerException)
-                            {
-                                throw;  // Rethrow this exception so it can be handled by the class that's using this one
-                            }
-                            catch (Exception e)
-                            {
-                                throw new MergerException("Something went wrong while trying to merge data with the template.", e.Message);
-                                // TODO Possible memoryleak? Will it reach the finally block?
-                                // Also possible loop if it does not reach the finally block
-                            }
-                            finally
-                            {           // TODO I think it does get here....
-                                try
-                                {
-                                    Directory.Delete(dataDirectory, true);
-                                }
-                                catch (Exception e)
-                                {
-                                    throw new MergerException("Could not delete the data directory from the mergeRequests folder.", e.Message);
-                                }
-                            }
-
-
-                        }
+                        Directory.Delete(dataDirectory, true);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new MergerException(
+                            "Could not delete the data directory from the mergeRequests folder.",
+                            e.Message);
                     }
                 }
-            }
-            else
-            {
-                throw new MergerException("The given template root directory does not exist.", "Does the service have access to that folder?");
             }
         }
 
