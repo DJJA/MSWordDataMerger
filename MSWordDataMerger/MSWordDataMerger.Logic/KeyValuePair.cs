@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace MSWordDataMerger.Logic
 {
-    public class KeyValuePair
+    class KeyValuePair
     {
         public String Key { get; private set; }
         public String Value { get; private set; }

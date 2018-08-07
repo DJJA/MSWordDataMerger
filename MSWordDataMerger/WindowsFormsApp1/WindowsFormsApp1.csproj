@@ -58,6 +58,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
+    <Compile Include="MSWordDataMerger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -87,6 +89,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ConfigLoader\ConfigLoader.csproj">
+      <Project>{eb98d371-bd6a-4b0d-a4c6-152a17a934c1}</Project>
+      <Name>ConfigLoader</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MSWordDataMerger.Logic\MSWordDataMerger.Logic.csproj">
       <Project>{097e9961-79c3-4346-9bca-e35a7f2a26b5}</Project>
       <Name>MSWordDataMerger.Logic</Name>

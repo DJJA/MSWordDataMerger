@@ -1,47 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Xceed.Words.NET;
 
 namespace MSWordDataMerger.Logic
 {
-    public class DocXTemplateEditor : ITemplateEditor
+    class DocXTemplateEditor : ITemplateEditor
     {
-        public void MergeWithData(string templatePath, ICollection<KeyValuePair> keyValuePairs, IEnumerable<IterationKeyValuePairHolder> iterationKeyValuePairHolders, String toAppendDocumentsPath, String mergedDocOutputPath)
+        public void MergeWithData(String templatePath, ICollection<KeyValuePair> keyValuePairs, IEnumerable<IterationKeyValuePairHolder> iterationKeyValuePairHolders, String toAppendDocumentsPath, String mergedDocOutputPath)
         {
             using (DocX document = DocX.Load(templatePath))
             {
                 ReplaceKeysWithValues(document, keyValuePairs);
                 ReplaceKeysWithValuesInIterations(document, iterationKeyValuePairHolders);
 
-                AppendDocuments(document, toAppendDocumentsPath);
-                
+                if (!String.IsNullOrEmpty(toAppendDocumentsPath))
+                {
+                    AppendDocuments(document, toAppendDocumentsPath);
+                }
+
+                var directoryPath = Path.GetDirectoryName(mergedDocOutputPath);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
+
                 document.SaveAs(mergedDocOutputPath);
             }
         }
 
         private void AppendDocuments(DocX document, String toAppendDocumentsPath)
         {
-            var documents = Directory.GetFiles(toAppendDocumentsPath);
-            foreach (var d in documents)
+            try
             {
-                if (Path.GetExtension(d) == ".docx")
+                var documents = Directory.GetFiles(toAppendDocumentsPath);
+                foreach (var d in documents)
                 {
-                    try
+                    if (Path.GetExtension(d) == ".docx")
                     {
-                        using (DocX doc = DocX.Load(d))
+                        try
                         {
-                            document.InsertSectionPageBreak();
-                            document.InsertDocument(doc);
+                            using (DocX doc = DocX.Load(d))
+                            {
+                                document.InsertSectionPageBreak();
+                                document.InsertDocument(doc);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            throw new MergerException($"Could not append the document located at \"{d}\"", e.Message);
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        // TODO Write log entry
-                    }
                 }
+            }
+            catch (Exception e)
+            {
+                throw new MergerException($"Could not load documents from \"{toAppendDocumentsPath}\"", e.Message);
             }
         }
 
@@ -78,7 +92,7 @@ namespace MSWordDataMerger.Logic
 
                 int offset = startTagIndex;
                 var keyValuePairIterations =
-                    (List<List<KeyValuePair>>) iterationKeyValuePairHolder.KeyValuePairIterations;
+                    (List<List<KeyValuePair>>)iterationKeyValuePairHolder.KeyValuePairIterations;
                 for (int x = 0; x < keyValuePairIterations.Count; x++)
                 {
                     var keyValuePairs = keyValuePairIterations[x];
@@ -91,7 +105,7 @@ namespace MSWordDataMerger.Logic
                 }
             }
 
-            
+
         }
 
         private void InsertParagraphsAt(DocX document, int index, IEnumerable<Paragraph> paragraphs)

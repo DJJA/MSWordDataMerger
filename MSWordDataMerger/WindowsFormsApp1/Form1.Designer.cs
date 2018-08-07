@@ -28,97 +28,85 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnMerge = new System.Windows.Forms.Button();
-            this.btnOpenFile = new System.Windows.Forms.Button();
-            this.btnDocXTest = new System.Windows.Forms.Button();
-            this.btnDocXLoadFile = new System.Windows.Forms.Button();
-            this.btnTemplateEditorTest = new System.Windows.Forms.Button();
-            this.btnSchrijfOfferteRegel = new System.Windows.Forms.Button();
-            this.btnSearchAndShow = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnMerge
+            // button1
             // 
-            this.btnMerge.Location = new System.Drawing.Point(171, 77);
-            this.btnMerge.Name = "btnMerge";
-            this.btnMerge.Size = new System.Drawing.Size(75, 23);
-            this.btnMerge.TabIndex = 0;
-            this.btnMerge.Text = "Merge";
-            this.btnMerge.UseVisualStyleBackColor = true;
-            this.btnMerge.Click += new System.EventHandler(this.btnMerge_Click);
+            this.button1.Location = new System.Drawing.Point(507, 145);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // btnOpenFile
+            // button2
             // 
-            this.btnOpenFile.Location = new System.Drawing.Point(335, 94);
-            this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(75, 23);
-            this.btnOpenFile.TabIndex = 1;
-            this.btnOpenFile.Text = "Open file";
-            this.btnOpenFile.UseVisualStyleBackColor = true;
-            this.btnOpenFile.Click += new System.EventHandler(this.btnOpenFile_Click);
+            this.button2.Location = new System.Drawing.Point(295, 80);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 1;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // btnDocXTest
+            // button3
             // 
-            this.btnDocXTest.Location = new System.Drawing.Point(152, 202);
-            this.btnDocXTest.Name = "btnDocXTest";
-            this.btnDocXTest.Size = new System.Drawing.Size(75, 23);
-            this.btnDocXTest.TabIndex = 2;
-            this.btnDocXTest.Text = "DocX Test";
-            this.btnDocXTest.UseVisualStyleBackColor = true;
-            this.btnDocXTest.Click += new System.EventHandler(this.btnDocXTest_Click);
+            this.button3.Location = new System.Drawing.Point(278, 203);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 2;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // btnDocXLoadFile
+            // button4
             // 
-            this.btnDocXLoadFile.Location = new System.Drawing.Point(547, 169);
-            this.btnDocXLoadFile.Name = "btnDocXLoadFile";
-            this.btnDocXLoadFile.Size = new System.Drawing.Size(75, 23);
-            this.btnDocXLoadFile.TabIndex = 3;
-            this.btnDocXLoadFile.Text = "DocX Load File";
-            this.btnDocXLoadFile.UseVisualStyleBackColor = true;
-            this.btnDocXLoadFile.Click += new System.EventHandler(this.btnDocXLoadFile_Click);
+            this.button4.Location = new System.Drawing.Point(507, 79);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "button4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // btnTemplateEditorTest
+            // btnStart
             // 
-            this.btnTemplateEditorTest.Location = new System.Drawing.Point(547, 256);
-            this.btnTemplateEditorTest.Name = "btnTemplateEditorTest";
-            this.btnTemplateEditorTest.Size = new System.Drawing.Size(138, 23);
-            this.btnTemplateEditorTest.TabIndex = 4;
-            this.btnTemplateEditorTest.Text = "Template editor test";
-            this.btnTemplateEditorTest.UseVisualStyleBackColor = true;
-            this.btnTemplateEditorTest.Click += new System.EventHandler(this.btnTemplateEditorTest_Click);
+            this.btnStart.Location = new System.Drawing.Point(495, 259);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(75, 23);
+            this.btnStart.TabIndex = 4;
+            this.btnStart.Text = "start";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
-            // btnSchrijfOfferteRegel
+            // btnStop
             // 
-            this.btnSchrijfOfferteRegel.Location = new System.Drawing.Point(383, 323);
-            this.btnSchrijfOfferteRegel.Name = "btnSchrijfOfferteRegel";
-            this.btnSchrijfOfferteRegel.Size = new System.Drawing.Size(134, 23);
-            this.btnSchrijfOfferteRegel.TabIndex = 5;
-            this.btnSchrijfOfferteRegel.Text = "Schrijf offerte regel";
-            this.btnSchrijfOfferteRegel.UseVisualStyleBackColor = true;
-            this.btnSchrijfOfferteRegel.Click += new System.EventHandler(this.btnSchrijfOfferteRegel_Click);
-            // 
-            // btnSearchAndShow
-            // 
-            this.btnSearchAndShow.Location = new System.Drawing.Point(66, 231);
-            this.btnSearchAndShow.Name = "btnSearchAndShow";
-            this.btnSearchAndShow.Size = new System.Drawing.Size(161, 23);
-            this.btnSearchAndShow.TabIndex = 6;
-            this.btnSearchAndShow.Text = "Zoek repeat blok en laat zien";
-            this.btnSearchAndShow.UseVisualStyleBackColor = true;
-            this.btnSearchAndShow.Click += new System.EventHandler(this.btnSearchAndShow_Click);
+            this.btnStop.Location = new System.Drawing.Point(527, 304);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(75, 23);
+            this.btnStop.TabIndex = 5;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnSearchAndShow);
-            this.Controls.Add(this.btnSchrijfOfferteRegel);
-            this.Controls.Add(this.btnTemplateEditorTest);
-            this.Controls.Add(this.btnDocXLoadFile);
-            this.Controls.Add(this.btnDocXTest);
-            this.Controls.Add(this.btnOpenFile);
-            this.Controls.Add(this.btnMerge);
+            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnStart);
+            this.Controls.Add(this.button4);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -127,13 +115,12 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btnMerge;
-        private System.Windows.Forms.Button btnOpenFile;
-        private System.Windows.Forms.Button btnDocXTest;
-        private System.Windows.Forms.Button btnDocXLoadFile;
-        private System.Windows.Forms.Button btnTemplateEditorTest;
-        private System.Windows.Forms.Button btnSchrijfOfferteRegel;
-        private System.Windows.Forms.Button btnSearchAndShow;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnStop;
     }
 }
 
