@@ -45,6 +45,12 @@ namespace MSWordDataMerger
             }
 
             logger = new Logger();
+
+            if (File.Exists($@"{configFolder}\doNotLog"))
+            {
+                logger.Disable();
+            }
+
             logger.LogServiceStartUpStart();
 
             if (!Directory.Exists(configFolder))

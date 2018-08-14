@@ -9,9 +9,21 @@ namespace MSWordDataMerger
     class Logger
     {
         private List<String> logEntries = new List<string>();
+        private bool disabled = false;
+
+        public void Disable()
+        {
+            disabled = true;
+        }
+
+        public void Enable()
+        {
+            disabled = false;
+        }
 
         public void LogException(Exception e)
         {
+            if (disabled) return;
             var entry = "";
             if (e is ConfigLoaderException cle)     // Bad for scaling
             {
@@ -30,36 +42,42 @@ namespace MSWordDataMerger
 
         public void LogInfo(String info)
         {
+            if (disabled) return;
             var entry = $"[i] {GetCurrentTimeLabel()} {info}";
             AddLogEntryToQueue(entry);
         }
 
         public void LogWarning(String warning)
         {
+            if (disabled) return;
             var entry = $"[W] {GetCurrentTimeLabel()} {warning}";
             AddLogEntryToQueue(entry);
         }
 
         public void LogServiceStartUpStart()
         {
+            if (disabled) return;
             var entry = $"# # {GetCurrentTimeLabel()} # # # # Start Service # # # # # #";
             AddLogEntryToQueue(entry);
         }
 
         public void LogServiceStartUpEnd()
         {
+            if (disabled) return;
             var entry = $"# # {GetCurrentTimeLabel()} # # # # ##### ####### # # # # # #";
             AddLogEntryToQueue(entry);
         }
 
         public void LogServiceStopStart()
         {
+            if (disabled) return;
             var entry = $"# # {GetCurrentTimeLabel()} # # # # Stop Service # # # # # #";
             AddLogEntryToQueue(entry);
         }
 
         public void LogServiceStopEnd()
         {
+            if (disabled) return;
             var entry = $"# # {GetCurrentTimeLabel()} # # # # #### ####### # # # # # #";
             AddLogEntryToQueue(entry);
         }
@@ -74,6 +92,7 @@ namespace MSWordDataMerger
 
         public void WriteAllLogEntries(String logFolder)
         {
+            if (disabled) return;
             var logFileName = $"{DateTime.Now.ToString("yyyyMMdd")}.txt";  // Also a risk, What is entries are added before the end of the day and writen on the new day. This very unlikely to happen since no one works at night.
             lock (this)
             {
