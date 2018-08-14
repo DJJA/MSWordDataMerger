@@ -40,8 +40,8 @@
             // serviceInstaller1
             // 
             this.serviceInstaller1.Description = "Service that merges data with docx templates.";
-            this.serviceInstaller1.DisplayName = "Microsoft Word Data Merger";
-            this.serviceInstaller1.ServiceName = "MSWordDataMerger";
+            this.serviceInstaller1.DisplayName = "DocX Data Merger";
+            this.serviceInstaller1.ServiceName = "DocXDataMerger";
             this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller

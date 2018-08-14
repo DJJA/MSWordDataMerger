@@ -7,7 +7,7 @@
     <ProjectGuid>{30233B0D-618A-4C24-8F31-05F1D5A75E05}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>MSWordDataMerger</RootNamespace>
-    <AssemblyName>MSWordDataMerger</AssemblyName>
+    <AssemblyName>DocXDataMerger</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

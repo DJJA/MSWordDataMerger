@@ -12,7 +12,7 @@ namespace MSWordDataMerger
     partial class MSWordDataMerger : ServiceBase
     {
         private static readonly String programDataFolder =
-            $@"{Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)}\MSWordDataMerger";
+            $@"{Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData)}\DocXDataMerger";
 
         private String configFolder = $@"{programDataFolder}\config";
         private String logFolder = $@"{programDataFolder}\log";
